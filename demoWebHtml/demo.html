@@ -1,0 +1,287 @@
+<!--
+  EV Battery Swap - Pure HTML & CSS Preview
+  Single-file UI with multiple 'pages' using :target (no JavaScript)
+  Sections included: Login, Driver Dashboard, Booking, Payment, Admin Dashboard, Staff Dashboard
+-->
+
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EV Battery Swap - UI Preview</title>
+  <style>
+    :root{
+      --bg:#f4f7fb; --card:#ffffff; --accent:#0369a1; --muted:#6b7280; --success:#16a34a;
+      --maxw:1100px; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#111}
+    .app{max-width:var(--maxw);margin:28px auto;padding:20px}
+
+    /* Top header */
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#0ea5a6);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    nav a{margin-left:12px;text-decoration:none;color:var(--accent);font-weight:600}
+
+    /* layout */
+    .container{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .main{min-height:520px}
+    .panel{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(5,15,25,0.06)}
+
+    /* Card & controls */
+    .row{display:flex;gap:12px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600}
+    .btn-primary{background:var(--accent);color:white}
+    .btn-ghost{background:transparent;border:1px solid #e6edf2;color:var(--accent)}
+
+    /* Form */
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input,select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6edf2;background:transparent}
+
+    /* Section navigation using hash (:target) */
+    section{display:none}
+    /* default: show login */
+    body:not(:target) #login, section:target{display:block}
+
+    /* Dashboard grid */
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* Station list */
+    .station{padding:12px;border-radius:8px;border:1px solid #eef4f7;background:#fbfeff}
+    .stat{display:flex;justify-content:space-between;align-items:center}
+
+    /* Booking */
+    .map-placeholder{height:180px;border-radius:8px;background:linear-gradient(90deg,#e6f2fa,#f8fbff);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+
+    /* Responsive */
+    @media(max-width:880px){.container{grid-template-columns:1fr}.grid-3{grid-template-columns:repeat(2,1fr)}.grid-3 .panel{min-height:0}}
+    @media(max-width:520px){.grid-3{grid-template-columns:1fr}}
+
+    /* Utility for visible anchor links */
+    .page-title{display:flex;align-items:center;justify-content:space-between}
+    .note{font-size:13px;color:var(--muted)}
+
+    /* tiny footer */
+    footer{margin-top:14px;text-align:center;color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="logo">EV</div>
+        <div>
+          <div style="font-weight:800">EV Battery Swap</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#login">Login</a>
+        <a href="#driver">Driver</a>
+        <a href="#booking">Booking</a>
+        <a href="#payment">Payment</a>
+        <a href="#staff">Staff</a>
+        <a href="#admin">Admin</a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <main class="main">
+
+        <!-- LOGIN -->
+        <section id="login" class="panel">
+          <div class="page-title">
+            <h2>Đăng nhập</h2>
+            <div class="note">Vai trò: Driver / Staff / Admin</div>
+          </div>
+
+          <form style="margin-top:12px">
+            <label for="email">Email / Username</label>
+            <input id="email" placeholder="example@mail.com" />
+
+            <label for="pw" style="margin-top:10px">Mật khẩu</label>
+            <input id="pw" type="password" placeholder="••••••" />
+
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <a class="btn btn-primary" href="#driver">Login as Driver</a>
+              <a class="btn btn-ghost" href="#admin">Login as Admin</a>
+            </div>
+
+            <p class="small" style="margin-top:10px">Bạn chưa có tài khoản? <a href="#register">Đăng ký</a></p>
+          </form>
+        </section>
+
+        <!-- DRIVER DASHBOARD -->
+        <section id="driver" class="panel">
+          <div class="page-title">
+            <h2>Driver Dashboard</h2>
+            <div class="note">Quick actions & upcoming bookings</div>
+          </div>
+
+          <div style="margin-top:12px" class="grid-3">
+            <div class="panel">
+              <h3 style="margin:0 0 8px 0">Quick Actions</h3>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <a class="btn btn-primary" href="#booking">Đặt lịch đổi pin</a>
+                <a class="btn" style="border:1px solid #e6edf2" href="#stations">Tìm trạm</a>
+                <a class="btn" style="border:1px solid #e6edf2" href="#payment">Thanh toán</a>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3 style="margin:0 0 8px 0">Upcoming Bookings</h3>
+              <div class="small">Chưa có lịch hẹn</div>
+            </div>
+
+            <div class="panel">
+              <h3 style="margin:0 0 8px 0">My Vehicles</h3>
+              <div class="small">1 vehicle linked — VIN: 12345ABC</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px" class="panel">
+            <h3 style="margin:0 0 8px 0">Nearby Stations</h3>
+            <div class="row" style="margin-top:8px">
+              <div class="station" style="flex:1">
+                <div class="stat"><strong>Station A</strong><span class="small">5/10 pins</span></div>
+                <div class="small">Địa chỉ: 123 Đường ABC</div>
+              </div>
+              <div class="station" style="flex:1">
+                <div class="stat"><strong>Station B</strong><span class="small">2/8 pins</span></div>
+                <div class="small">Địa chỉ: 45 Đường XYZ</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOOKING -->
+        <section id="booking" class="panel">
+          <div class="page-title">
+            <h2>Đặt lịch đổi pin</h2>
+            <div class="note">Chọn trạm và thời gian</div>
+          </div>
+
+          <div style="margin-top:12px" class="panel">
+            <div class="map-placeholder">[Bản đồ / trạng thái trạm]</div>
+
+            <form style="margin-top:12px">
+              <label for="station">Chọn trạm</label>
+              <select id="station"><option>Station A</option><option>Station B</option></select>
+
+              <label for="time" style="margin-top:10px">Chọn thời gian</label>
+              <input id="time" type="datetime-local" />
+
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <a class="btn btn-primary" href="#driver">Đặt lịch</a>
+                <a class="btn btn-ghost" href="#driver">Hủy</a>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- PAYMENT -->
+        <section id="payment" class="panel">
+          <div class="page-title">
+            <h2>Thanh toán</h2>
+            <div class="note">Deposit, Subscription, Insurance</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="panel">
+              <div class="row" style="align-items:center;justify-content:space-between">
+                <div>
+                  <div style="font-weight:700">Deposit Fee</div>
+                  <div class="small">Số tiền cọc: 100$</div>
+                </div>
+                <div><a class="btn btn-primary" href="#">Pay</a></div>
+              </div>
+            </div>
+
+            <div class="panel" style="margin-top:10px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-weight:700">Subscription</div>
+                  <div class="small">Monthly plan: Active</div>
+                </div>
+                <div><a class="btn" href="#">Manage</a></div>
+              </div>
+            </div>
+
+            <div class="panel" style="margin-top:10px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-weight:700">Insurance</div>
+                  <div class="small">Protects against accidental damage</div>
+                </div>
+                <div><a class="btn" href="#">View</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STAFF DASHBOARD -->
+        <section id="staff" class="panel">
+          <div class="page-title">
+            <h2>Staff Dashboard</h2>
+            <div class="note">Quản lý giao dịch & pin</div>
+          </div>
+
+          <div style="margin-top:12px" class="grid-3">
+            <div class="panel">
+              <h3>Scan & Confirm</h3>
+              <p class="small">Scan QR / NFC để bắt đầu giao dịch</p>
+              <div style="margin-top:8px"><a class="btn btn-primary" href="#">Confirm Swap</a></div>
+            </div>
+
+            <div class="panel">
+              <h3>Battery Health</h3>
+              <p class="small">List of batteries need service</p>
+            </div>
+
+            <div class="panel">
+              <h3>Issues</h3>
+              <p class="small">Open reports & complaints</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ADMIN DASHBOARD -->
+        <section id="admin" class="panel">
+          <div class="page-title">
+            <h2>Admin Dashboard</h2>
+            <div class="note">System overview & reports</div>
+          </div>
+
+          <div style="margin-top:12px" class="panel">
+            <h3>Overview</h3>
+            <div class="row" style="margin-top:10px">
+              <div style="flex:1">
+                <div style="font-weight:700">Total Swaps Today</div>
+                <div class="small">120</div>
+              </div>
+              <div style="flex:1">
+                <div style="font-weight:700">Revenue</div>
+                <div class="small">$4,200</div>
+              </div>
+              <div style="flex:1">
+                <div style="font-weight:700">Active Users</div>
+                <div class="small">1,430</div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a class="btn btn-primary" href="#">Generate Report</a>
+              <a class="btn btn-ghost" href="#staff">Manage Complaints</a>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <footer class="small">© EV Battery Swap — UI preview</footer>
+  </div>
+</body>
+</html>
