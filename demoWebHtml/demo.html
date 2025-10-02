@@ -179,6 +179,43 @@
               </div>
             </form>
           </div>
+
+          <!-- PAYMENT INSIDE BOOKING -->
+          <div class="panel" style="margin-top:10px">
+            <h3 style="margin:0 0 8px 0">Thanh toán đổi pin</h3>
+            <p class="small">Chọn gói/loại pin và phương thức thanh toán</p>
+
+            <div class="row" style="margin-top:8px">
+              <div style="flex:1">
+                <label for="plan">Gói/Loại pin</label>
+                <select id="plan">
+                  <option value="per_use">Theo lượt — 89.000đ/lượt</option>
+                  <option value="premium">Gói Premium — 0đ/lượt (trong hạn mức)</option>
+                  <option value="72v32ah">72V 32Ah — 139.000đ/lượt</option>
+                </select>
+              </div>
+              <div style="flex:1">
+                <label for="payment-method">Phương thức thanh toán</label>
+                <select id="payment-method">
+                  <option value="momo">Ví MoMo</option>
+                  <option value="zalopay">ZaloPay</option>
+                  <option value="vnpay">VNPay</option>
+                  <option value="bank">Chuyển khoản ngân hàng</option>
+                  <option value="card">Thẻ tín dụng/ghi nợ</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row" style="margin-top:10px;align-items:center;justify-content:space-between">
+              <div class="small">Tổng phí dự kiến</div>
+              <div style="font-weight:800;font-size:18px;color:#0f172a">89.000đ</div>
+            </div>
+
+            <div class="row" style="margin-top:10px">
+              <a class="btn btn-primary" href="#payment" style="flex:1;text-align:center">Thanh toán</a>
+              <a class="btn btn-ghost" href="#payment" style="flex:1;text-align:center">Xem chi tiết thanh toán</a>
+            </div>
+          </div>
         </section>
 
         <!-- PAYMENT -->
